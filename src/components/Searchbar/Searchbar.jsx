@@ -1,6 +1,8 @@
 import { Component } from 'react';
 import s from './Searchbar.module.css';
 
+import Notiflix from 'notiflix';
+
 class Searchbar extends Component {
   state = {
     searchName: '',
@@ -17,6 +19,7 @@ class Searchbar extends Component {
     e.preventDefault();
 
     if (this.state.searchName.trim() === '') {
+      Notiflix.Notify.info('Введите название');
       return;
     }
     this.props.onSubmit(this.state.searchName);
@@ -41,8 +44,8 @@ class Searchbar extends Component {
           </button>
 
           <input
-            onChange={handeChange}
             value={searchName}
+            onChange={handeChange}
             className={s.SearchFormInput}
             name="searchName"
             type="text"
