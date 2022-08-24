@@ -1,12 +1,13 @@
 import s from './ImageGalleryItem.module.css';
 
 const ImageGalleryItem = ({ image }) => {
+  const {key, webformatURL, alt} = image
   return (
-    <li className={s.ImageGalleryItem} id={image.id}>
+    <li className={s.ImageGalleryItem} id={key}>
       <img
         className={s.ImageGalleryItemImage}
-        src={image.webformatURL}
-        alt={image.tags}
+        src={webformatURL}
+        alt={alt}
       />
     </li>
   );
