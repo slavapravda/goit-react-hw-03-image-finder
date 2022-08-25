@@ -12,9 +12,7 @@ import s from './ImageGallery.module.css';
 
 class ImageGallery extends Component {
   state = {
-    searchName: '',
     image: [],
-    page: 1,
     loading: false,
     error: null,
     showBtn: false,
@@ -23,12 +21,13 @@ class ImageGallery extends Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
-    const { page } = this.state;
+    const { page } = this.props;
+
     const prevName = prevProps.searchName;
     const nextName = this.props.searchName;
 
     if (prevName !== nextName) {
-      this.setState({ loading: true, image: null, showBtn: false, page: 1 });
+      this.setState({ loading: true, image: [], showBtn: false });
 
       searchImg(nextName, page)
         .then(data => data.hits)
@@ -41,7 +40,7 @@ class ImageGallery extends Component {
         .finally(() => this.setState({ loading: false, showBtn: true }));
     }
 
-    if (prevState.page !== page) {
+    if (page > prevProps.page && page > 1) {
       this.setState({ loading: true });
 
       searchImg(nextName, page)
@@ -56,19 +55,14 @@ class ImageGallery extends Component {
     }
   }
 
-  onLoadMoreBtnClick = () => {
-    this.setState(prevState => ({
-      page: prevState.page + 1,
-    }));
-  };
-
   openModal = largeImg => {
     this.setState({ largeImg });
   };
 
   render() {
-    const { loading, image, error, showBtn, largeImg} = this.state;
-    const { onLoadMoreBtnClick, openModal } = this;
+    const { loading, image, error, showBtn, largeImg } = this.state;
+    const { openModal } = this;
+    const { onLoadMoreBtnClick } = this.props;
 
     return (
       <>
@@ -98,6 +92,7 @@ class ImageGallery extends Component {
 export default ImageGallery;
 
 ImageGallery.propTypes = {
-  searchName: PropTypes.string.isRequired,
-
+  nextName: PropTypes.string,
+  page: PropTypes.number,
+  onLoadMoreBtnClick: PropTypes.func,
 };

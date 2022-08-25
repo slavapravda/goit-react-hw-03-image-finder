@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const Button = ({ onClick }) => {
   return (
     <div className={s.buttonPosition}>
-      <button className={s.button} onClick={() => onClick()} type="button">
+      <button className={s.button} onClick={onClick} type="button">
         Load more
       </button>
     </div>
