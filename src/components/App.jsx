@@ -2,7 +2,6 @@ import { Component } from 'react';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
 
-
 export class App extends Component {
   state = {
     searchName: '',
@@ -16,12 +15,12 @@ export class App extends Component {
 
   render() {
     const { formSearchHandler } = this;
-    const {searchName} = this.state
+    const { searchName } = this.state;
 
     return (
       <div>
-        <Searchbar onSubmit={formSearchHandler} />
-        <ImageGallery searchName={searchName}/>
+        <Searchbar onSubmit={formSearchHandler} searchName={searchName} />
+        <ImageGallery searchName={searchName} />
       </div>
     );
   }

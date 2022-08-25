@@ -1,4 +1,6 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import s from './Searchbar.module.css';
 
 import Notiflix from 'notiflix';
@@ -17,12 +19,17 @@ class Searchbar extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    const { searchName } = this.state;
 
-    if (this.state.searchName.trim() === '') {
-      Notiflix.Notify.info('Введите название');
-      return;
+    if (searchName.trim() === '') {
+      return Notiflix.Notify.info('Введіть коректну назву');
     }
-    this.props.onSubmit(this.state.searchName);
+
+    if (searchName.trim() === this.props.searchName) {
+      return Notiflix.Notify.failure('Введіть іншу назву пошуку');
+    }
+
+    this.props.onSubmit(searchName);
 
     this.reset();
   };
@@ -60,3 +67,7 @@ class Searchbar extends Component {
 }
 
 export default Searchbar;
+
+Searchbar.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
