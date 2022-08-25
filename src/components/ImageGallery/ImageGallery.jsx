@@ -67,7 +67,7 @@ class ImageGallery extends Component {
   };
 
   render() {
-    const { loading, image, error, showBtn, largeImg, page } = this.state;
+    const { loading, image, error, showBtn, largeImg} = this.state;
     const { onLoadMoreBtnClick, openModal } = this;
 
     return (
@@ -99,4 +99,5 @@ export default ImageGallery;
 
 ImageGallery.propTypes = {
   searchName: PropTypes.string.isRequired,
+
 };
