@@ -5,7 +5,7 @@ const API_KEY = '28740342-1947fe48ccb576993622995e0';
 
 function searchImg(name, page) {
   return fetch(
-    `${BASE_URL}/?q=${name}&${page}&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=12`
+    `${BASE_URL}/?q=${name}&page=${page}&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=12`
   ).then(response => {
     if (response.ok) {
       return response.json();

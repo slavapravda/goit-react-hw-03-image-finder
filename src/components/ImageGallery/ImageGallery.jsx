@@ -13,7 +13,7 @@ import s from './ImageGallery.module.css';
 class ImageGallery extends Component {
   state = {
     searchName: '',
-    image: null,
+    image: [],
     page: 1,
     loading: false,
     error: null,
@@ -31,17 +31,21 @@ class ImageGallery extends Component {
       this.setState({ loading: true, image: null, showBtn: false, page: 1 });
 
       searchImg(nextName, page)
-        .then(res => res.hits)
-        .then(image => this.setState({ image }))
+        .then(data => data.hits)
+        .then(image =>
+          this.setState({
+            image: [...image],
+          })
+        )
         .catch(error => this.setState({ error }))
         .finally(() => this.setState({ loading: false, showBtn: true }));
     }
 
-    if (prevState.page !== page && page !== 1) {
+    if (prevState.page !== page) {
       this.setState({ loading: true });
 
       searchImg(nextName, page)
-        .then(res => res.hits)
+        .then(data => data.hits)
         .then(image =>
           this.setState(prevState => ({
             image: [...prevState.image, ...image],
@@ -63,7 +67,7 @@ class ImageGallery extends Component {
   };
 
   render() {
-    const { loading, image, error, showBtn, largeImg } = this.state;
+    const { loading, image, error, showBtn, largeImg, page } = this.state;
     const { onLoadMoreBtnClick, openModal } = this;
 
     return (
@@ -78,6 +82,7 @@ class ImageGallery extends Component {
                 smallImg={webformatURL}
                 largeImg={largeImageURL}
                 alt={tags}
+                id={id}
                 key={id}
                 onClickImg={openModal}
               />
